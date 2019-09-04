@@ -7,9 +7,11 @@ function y=bolzano(fun,a,b,epsilon,maxdeep)
     c = (a+b)/2;
     fc = fx(c);
     fa = fx(a);
-    fb = fx(b);
+    fb = fx(b);  
+    if(fa*fb >0)
+      break
+    endif
     k=k+1;
-    c = (a+b)/2;
     fc = fx(c);
     R = vertcat(R,[k a c b fa fc fb]);
     if(fa*fc <0)
