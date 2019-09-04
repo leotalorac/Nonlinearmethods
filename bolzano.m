@@ -1,20 +1,25 @@
-function y=bolzano(fun,a,b,epsilon,k)
-  if(k ==0)
-    disp("    K         a          b          c        F(a)       F(c)      F(b)")
-  endif
+function y=bolzano(fun,a,b,epsilon)
+  disp("    K         a          b          c        F(a)       F(c)      F(b)");
+  k=0;
   fx = inline(fun,'x');
-  c = (a+b)/2;
-  fa = fx(a);
-  fb = fx(b);
-  fc = fx(c);
-  R = [k a c b fa fc fb];
+  R = [];
+  do
+    c = (a+b)/2;
+    fc = fx(c);
+    fa = fx(a);
+    fb = fx(b);
+    k=k+1;
+    c = (a+b)/2;
+    fc = fx(c);
+    R = vertcat(R,[k a c b fa fc fb]);
+    if(fa*fc <0)
+      a = a;
+      b = c;
+    else
+      a = c;
+      b = b;
+    endif
+  until(abs(fc)<epsilon)  
   disp(R);
-  k=k+1;
-  if(abs(fc)<epsilon)
-    y=c;
-  elseif(fa*fc < 0)
-    y =(bolzano(fun,a,c,epsilon,k));
-  else
-    y =(bolzano(fun,c,b,epsilon,k));
-  endif
+  y =c;
 endfunction
