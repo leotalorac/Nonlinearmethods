@@ -1,4 +1,4 @@
-function y=bolzano(fun,a,b,epsilon)
+function y=bolzano(fun,a,b,epsilon,maxdeep)
   disp("    K         a          b          c        F(a)       F(c)      F(b)");
   k=0;
   fx = inline(fun,'x');
@@ -19,7 +19,7 @@ function y=bolzano(fun,a,b,epsilon)
       a = c;
       b = b;
     endif
-  until(abs(fc)<epsilon)  
+  until(abs(fc)<epsilon || k==maxdeep)  
   disp(R);
   y =c;
 endfunction
